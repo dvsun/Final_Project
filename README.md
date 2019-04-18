@@ -35,6 +35,15 @@ If so,
 The analysis method used will be Time-Series analysis.
 
 
+
+### Next Steps
+
+- Cluster the buoys with DBSCAN.
+- Analysis of the time-series with ARIMA.
+- Predict future oscillations. 
+- Check the predicted oscillations with the reality.
+
+
 ---
 
 
