@@ -29,7 +29,7 @@ If so,
 - When will happen the next ENSO variation? 
 
 
-- As the data that I'll work on is outdated, is my prediction accurate with what happen in reality? In comparison from recent parameters obtained by NOAA. 
+- As the data that we'll work on is outdated, is my prediction accurate with what happen in reality? In comparison from recent parameters obtained by NOAA. 
 
 
 The analysis method used will be Time-Series analysis.
@@ -39,37 +39,57 @@ The analysis method used will be Time-Series analysis.
 ### Next Steps
 
 - Cluster the buoys with DBSCAN.
-- Analysis of the time-series with ARIMA.
+- Analysis of the time-series with SARIMA.
 - Predict future oscillations. 
 - Check the predicted oscillations with the reality.
 
 
----
-
-
-## TO DO
 
 ### Data Preparation
 
 #### Overview:
 
-    What is your dataset about?
-    Where/how did you obtain your dataset? It can be either a public dataset or collected with API/web scraping. Provide a link if possible.
-    General description of the dataset such as the size, complexity, data types, etc.
+The dataset of this project contains 178080 observations. Each observation include the parameters that one buoy located in the central Pacific Ocean have registered in one day. The dataset extends from March 1980 to June 1998 for nearly 70 different locations between 7.5N - 7.5S and 135E - 95W. However, as each buoy had different characteristics, the dataset is incomplete and lacks information from many spacetime points. 
+
+The full dataset have a size of 178080 rows x 12 columns, including 5 integers (id & date), 2 floats (location) and 5 object (the main 5 parameters). 
 
 ### Data Ingestion & Database
 
     If you downloaded a dataset (either public or private), describe where you downloaded it and include the command to load the dataset.
-    If you obtain the data via API/web scraping, provide the scripts.
-    Provide a schema of your tables.
+    
+We download the [dataset](https://archive.ics.uci.edu/ml/datasets/El+Nino) from UC
+
+
+repository. Afterwards we open the .csv file with Python 3.7 - Jupyter Notebook. Note that the name of the columns are stored in another .csv.
+
+``` python
+import pandas as pd
+
+column = pd.read_csv('../Data/tao-all2.col', names = 'c')
+data = pd.read_csv('../Data/tao-all2.dat', sep=' ', names = column['c'])
+```
+
 
 ### Data Wrangling and Cleaning
 
-Your full process of data wrangling and cleaning.
+First, we replace the '.' values (meaning missing information) to NaN values. This change allow us to count how many NaN values we have in the dataset. 
+Then, we change the format of the columns that contain the parameters. All parameters are numeric, thus, we transform the columns to float.
+Afterwards, we create a new column, named 'date', were we summarize the columns that are related to the date of the observation.
 
-    Document your workflow and thinking process.
+Finally we store the cleaned dataset in a database located in Google Cloud as well as in a .csv. 
+
 
 ### Data Analysis
+
+Several years ago, the scientist have establish the Oceanic Niño Index (ONI) to parameterize the effect of el Niño-la Niña events. This index evaluate the sea surface temperature (SST) anomalies in the region 5N-5S, 120-170W. When the SST cross the threshold of +/- 0.5ºC for 5 consecutive overlapping seasons, it is considered that el Niño (for positive anomalies) or la Niña (for negative anomalies) has happened. 
+
+Therefore, in this project we focus our analysis in how changes the Sea Surface Temperature against time. 
+For that, we use Time-Series analysis to answer our hypothesis. 
+
+First, from all the data we have, we take only those values related to the Sea Surface Temperature that are located inside the ONI region of 5N-5S, 120-170W. 
+To simplify our analysis (1st aproximation), we consider that only the average of all the SST measures from the different buoys represent faithfully the average temperature of that region of the sea. 
+Moreover (2nd aproximation), in order to reduce the computational requirements, we resample the daily SST measures to a monthly basis. 
+
 
     Overview the general steps you will go through to analyze your data in order to test your hypothesis.
     Document each step of your data exploration and analysis.
