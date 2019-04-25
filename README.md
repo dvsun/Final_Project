@@ -61,7 +61,7 @@ Contain the clustering analysis of some groups of observations. We use the unsup
 #### Data folder
 Contains all data source and the intermediate .csv files generated in the analysis.
 
-#### Images & Graphs
+#### Images & Graphs folder
 Contains the images and graphs used in the readme and the presentation.
 
 
