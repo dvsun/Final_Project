@@ -12,9 +12,9 @@ Taken from Wikipedia:
 
 #### Dataset
 
-The [dataset](https://archive.ics.uci.edu/ml/datasets/El+Nino) contains a set of oceanographic and surface meteorological readings taken from a series of buoys positioned throughout the equatorial Pacific from March 1980 to June 1998. The origin cames from NOAA (National Oceanic and Atmospheric Administration), USA.
+The [dataset](https://archive.ics.uci.edu/ml/datasets/El+Nino) contains a set of oceanographic and surface meteorological readings taken from a series of buoys positioned throughout the equatorial Pacific from March 1980 to June 1998. The origin of the dataset is NOAA (National Oceanic and Atmospheric Administration), USA.
 
-The main parameters are temporal and spatial location, humidity, wind speed and direction and sea and air temperatures.
+The main parameters are temporal and spatial location, humidity, wind speed (N-S and W-E) and sea and air temperatures.
 	 
 
 #### Main hypothesis
@@ -34,9 +34,7 @@ If so,
 
 The analysis method used will be Time-Series analysis.
 
-
-
-### Next Steps
+Steps:
 
 - Analysis of the time-series with SARIMA.
 - Predict future oscillations. 
@@ -45,6 +43,31 @@ The analysis method used will be Time-Series analysis.
 Extra:
 - Cluster the buoys with DBSCAN.
 
+
+### Organization of the reposetory.
+
+#### Analysis folder
+Contain all analysis files. There are 3 main different files:
+
+- Import and Clean and Mapping
+Contain the first steps of the analysis about importing, clean and mapping the data.
+
+- Time-Series-Analysis
+Each file contain a Time-Series-Analysis from different dataset and different variable selected. 
+
+- Clustering files
+Contain the clustering analysis of some groups of observations. We use the unsupervised method DBSCAN to cluster them. 
+
+#### Data folder
+Contains all data source and the intermediate .csv files generated in the analysis.
+
+#### Images & Graphs
+Contains the images and graphs used in the readme and the presentation.
+
+
+
+
+## Summary of the main aspects of the analysis.
 
 ### Data Preparation
 
@@ -75,14 +98,15 @@ Afterwards, we create a new column, named 'date', were we summarize the columns 
 Finally, we store the cleaned dataset in a database located in Google Cloud as well as in a .csv. 
 
 
-### Data Analysis
+### Main Data Analysis
 
 Several years ago, the scientist have establish the Oceanic Niño Index (ONI) to parameterize the effect of el Niño-la Niña events. This index evaluate the sea surface temperature (SST) anomalies in the region 5N-5S, 120-170W. When the SST cross the threshold of +/- 0.5ºC for 5 consecutive overlapping seasons, it is considered that el Niño (for positive anomalies) or la Niña (for negative anomalies) has happened. 
 
 Therefore, in this project we focus our analysis in how changes the Sea Surface Temperature against time. 
 For that, we use Time-Series analysis to answer our hypothesis. 
 
-First, from all the data we have, we take only those values related to the Sea Surface Temperature that are located inside the ONI region of 5N-5S, 120-170W. 
+First, from all the data we have, we take only those values related to the Sea Surface Temperature that are located inside the ONI region of 5N-5S, 120-170W. The selection of the observations is done in the Clustering the ONI buoys file.
+
 To simplify our analysis (1st aproximation), we consider that only the average of all the SST measures from the different buoys represent faithfully the average temperature of that region of the sea. 
 Moreover (2nd aproximation), in order to reduce the computational requirements, we resample the daily SST measures to a monthly basis. 
 Plus, we cut the first months of the time series because there were many missing values. (3rd aproximation).
@@ -106,7 +130,8 @@ In the trend plot, we observe a positive trend. We should not see it because (wi
 The seasonality is correctly captured by its plot but the residual error plot tends too much to -1, indicating that the other two factors cannot explain completely the behaviour of the dataset. 
 
 
-Then, we proceed to analyze the time-series by SARIMAX method.
+Then, we proceed to analyze the time-series by SARIMAX method. In order to apply this method to the dataset, I follow the following SARIMAX guide: "https://www.digitalocean.com/community/tutorials/a-guide-to-time-series-forecasting-with-arima-in-python-3".
+
 First, we select for the p, d ,q ,P, D, Q, S parameters that fits best por our values. 
 
 ``` python
