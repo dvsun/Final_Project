@@ -38,11 +38,12 @@ The analysis method used will be Time-Series analysis.
 
 ### Next Steps
 
-- Cluster the buoys with DBSCAN.
 - Analysis of the time-series with SARIMA.
 - Predict future oscillations. 
 - Check the predicted oscillations with the reality.
 
+Extra:
+- Cluster the buoys with DBSCAN.
 
 
 ### Data Preparation
@@ -202,8 +203,7 @@ We follow the same workflow for different parameters and more simplified dataset
 
 ### Conclusion
 
-Overall, the results we obtain from this analysis are not good enough to predict any future el Niño o la Niña event. However, our model does predict the seasonal changes in the sea surface temperature, and thus, predicting the normal behaviour. Unfortunately, the high error we obtain with our model prevent us to compare between normal and anormal sea surface temperature in the central Pacific. 
-
+Our model does predict the seasonal changes in the sea surface temperature, and thus, predicting the normal behaviour. Unfortunately, the high error we obtain with our model prevent us to compare between normal and anormal sea surface temperature in the central Pacific. Therefore, the results we obtain from this analysis are not good enough to predict any future el Niño o la Niña event and so, we cannot answer our initial question with this combination of dataset and analysis. 
 
 
 
