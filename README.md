@@ -44,7 +44,7 @@ Extra:
 - Cluster the buoys with DBSCAN.
 
 
-### Organization of the reposetory.
+## Organization of the reposetory.
 
 #### Analysis folder
 Contain all analysis files. There are 3 main different files:
