@@ -116,7 +116,7 @@ As we have short data and we can test our predictions with values outside the da
 
 After these aproximations, we plot the Sea Surface Temperature vs Time:
 
-![image_1](https://raw.githubusercontent.com/dvsun/Final_Project/master/Images_%26_graphs/ONI_SS_temp.png)
+![image_1](https://github.com/dvsun/Final_Project/master/Images_%26_graphs/ONI_SS_temp.png)
 
 We start our analysis decomposing the Time-serie:
 
